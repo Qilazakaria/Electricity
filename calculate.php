@@ -14,10 +14,10 @@
     <?php
     function calculateElectricityRate($voltage, $current, $rate) {
         // Calculate power
-        $power = ($voltage * $current) / 1000;
+        $power = ($voltage * $current) ;
 
         // Calculate energy
-        $energy = $power * 1; // Assuming 1 hour
+        $energy = ($power / 1000) * 2; // Assuming 1 hour
 
         // Calculate total charge
         $totalCharge = $energy * ($rate / 100);

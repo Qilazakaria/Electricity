@@ -35,10 +35,10 @@
         $current = $_POST['current'];
         $rate = $_POST['rate'];
 
-        // Calculate electricity rate
+        // Calculate electricity 
         $result = calculateElectricityRate($voltage, $current, $rate);
 
-        // Display the result
+        // Display 
         echo "<div class='card'>";
         echo "<div class='card-body'>";
         echo "<h4 class='card-title'>Result:</h4>";
@@ -48,7 +48,6 @@
         echo "</div>";
         echo "</div>";
 
-        // Back button
         echo "<a href=\"index.html\" class=\"btn btn-secondary mt-3\">Back</a>";
     }
     ?>

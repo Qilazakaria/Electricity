@@ -44,7 +44,9 @@
         echo "<h4 class='card-title'>Result:</h4>";
         echo "<p class='card-text'>Power: {$result['power']} kW</p>";
         echo "<p class='card-text'>Energy: {$result['energy']} kWh</p>";
-        echo "<p class='card-text'>Total Charge: RM {$result['totalCharge']}</p>";
+        // Format two decimal places
+        $formattedTotalCharge = number_format($result['totalCharge'], 2);
+        echo "<p class='card-text'>Total Charge: RM {$formattedTotalCharge}</p>";
         echo "</div>";
         echo "</div>";
 

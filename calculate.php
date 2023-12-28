@@ -17,7 +17,7 @@
         $power = ($voltage * $current) ;
 
         // Calculate energy
-        $energy = ($power / 1000) * 2; // Assuming 1 hour
+        $energy = ($power / 1000) * 1; // Assuming 1 hour
 
         // Calculate total charge
         $totalCharge = $energy * ($rate / 100);

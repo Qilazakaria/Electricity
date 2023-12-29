@@ -12,14 +12,14 @@
     <h1 class="mb-4">Electricity Calculator Result</h1>
 
     <?php
-    function calculateElectricityRate($voltage, $current, $rate) {
-        // Calculate power
-        $power = ($voltage * $current) ;
+    function calculateElectricityRate($voltage, $current, $rate, $hour) {
+        // Calculate power Wh
+        $power = ($voltage * $current);
 
-        // Calculate energy
-        $energy = ($power / 1000) * 1; // Assuming 1 hour
+        // Calculate energy for the given hour kWh
+        $energy = ($power / 1000) * $hour; 
 
-        // Calculate total charge
+        // Calculate total charge 
         $totalCharge = $energy * ($rate / 100);
 
         return [
@@ -35,20 +35,46 @@
         $current = $_POST['current'];
         $rate = $_POST['rate'];
 
-        // Calculate electricity 
-        $result = calculateElectricityRate($voltage, $current, $rate);
+        // Display  power in kw
+        $totalPower = ($voltage * $current)/1000;
+        $totalRate = $rate/100;
 
-        // Display 
-        echo "<div class='card'>";
-        echo "<div class='card-body'>";
-        echo "<h4 class='card-title'>Result:</h4>";
-        echo "<p class='card-text'>Power: {$result['power']} kW</p>";
-        echo "<p class='card-text'>Energy: {$result['energy']} kWh</p>";
-        // Format two decimal places
-        $formattedTotalCharge = number_format($result['totalCharge'], 2);
-        echo "<p class='card-text'>Total Charge: RM {$formattedTotalCharge}</p>";
-        echo "</div>";
-        echo "</div>";
+        echo "<p>Power: {$totalPower} kW</p>";
+        echo "<p>Rate: {$totalRate} RM</p>";
+
+        // Display results in a table
+        echo "<table class='table'>";
+        echo "<thead>
+                <tr>
+                <th><strong>#</strong></th>
+                <th>Hour</th>
+                <th>Energy (kWh)</th>
+                <th>TOTAL (RM)</th>
+                </tr>
+              </thead>";
+        echo "<tbody>";
+
+        $number = 1; 
+
+        for ($hour = 1; $hour <= 24; $hour++) {
+            // Calculate results for each hour
+            $hourlyResult = calculateElectricityRate($voltage, $current, $rate, $hour);
+
+            // Display results in table rows
+            echo "<tr>";
+            echo "<td><strong>{$number}</strong></td>";
+            echo "<td>{$hour}</td>";
+            echo "<td>{$hourlyResult['energy']}</td>";
+            // Format two decimal places
+            $formattedTotal = number_format($hourlyResult['totalCharge'], 2);
+            echo "<td>{$formattedTotal}</td>";
+            echo "</tr>";
+
+            $number++;
+        }
+
+        echo "</tbody>";
+        echo "</table>";
 
         echo "<a href=\"index.html\" class=\"btn btn-secondary mt-3\">Back</a>";
     }
